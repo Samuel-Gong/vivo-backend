@@ -51,7 +51,7 @@ public class LectureControllerTest {
 
     @Test
     public void queryLecture() throws Exception {
-        System.out.println(System.getProperty("user.timezone"));
+        System.out.println("系统时区: " + System.getProperty("user.timezone"));
 
         MvcResult result = mockMvc.perform(get("/lectures/{id}", 1))
                 .andExpect(status().isOk())
