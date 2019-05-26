@@ -35,4 +35,14 @@ public class GlobalExceptionHandlerTest {
                 .andExpect(status().isNotFound())
                 .andReturn();
     }
+
+    @Test
+    public void shouldReturnUnknownException() throws Exception {
+        given(lectureService.queryLecture(1L))
+                .willThrow(new RuntimeException());
+
+        mvc.perform(get("/lectures/{id}", 1))
+                .andExpect(status().isInternalServerError())
+                .andReturn();
+    }
 }

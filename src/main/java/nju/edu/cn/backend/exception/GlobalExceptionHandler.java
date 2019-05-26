@@ -3,6 +3,7 @@ package nju.edu.cn.backend.exception;
 import lombok.extern.slf4j.Slf4j;
 import nju.edu.cn.backend.vo.ExceptionResponseVO;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,15 +32,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponseVO> errorMessage(GlobalException ex) {
         log.warn("GlobalException error", ex);
         Locale locale = Locale.CHINA;
-        String code = ex.getCode().uniqueKey().toLowerCase();
-        String message = ex.getMessage();
+        String code = ex.getCode().uniqueKey();
+        String message = this.messageSource.getMessage(code, ex.getFormatArgs(), locale);
+        return ResponseEntity.status(ex.getCode().httpCode()).body(new ExceptionResponseVO(message, LocalDateTime.now(), code));
+    }
 
-        try {
-            message = this.messageSource.getMessage(code, ex.getFormatArgs(), locale);
-        } catch (Exception var6) {
-            log.error("catch Throwable but e", var6);
-        }
-
-        return ResponseEntity.status(ex.getCode().httpCode()).body(new ExceptionResponseVO(message, LocalDateTime.now(), ex.getCode().uniqueKey()));
+    @ExceptionHandler({Throwable.class})
+    public ResponseEntity<ExceptionResponseVO> errorMessage(Throwable ex) {
+        log.error("Unknown error", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionResponseVO("Unknown error", LocalDateTime.now(), "Unknown"));
     }
 }
