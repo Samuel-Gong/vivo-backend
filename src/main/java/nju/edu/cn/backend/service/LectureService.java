@@ -58,9 +58,9 @@ public class LectureService {
      */
     @Transactional(rollbackFor = Exception.class)
     public LectureVO createLecture(LectureVO lectureVO) {
-
         Lecture lecture = lectureRepository.save(Lecture.builder()
                 .title(lectureVO.getTitle())
+                .speaker(lectureVO.getSpeaker())
                 .start(lectureVO.getStart())
                 .validityDays(lectureVO.getValidityDays())
                 .build());
