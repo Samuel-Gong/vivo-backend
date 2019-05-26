@@ -22,14 +22,9 @@ import java.util.List;
 public class LectureCommentVO {
 
     /**
-     * 讲座id
+     * 讲座信息
      */
-    private Long id;
-
-    /**
-     * 讲座名称
-     */
-    private String title;
+    private LectureVO lecture;
 
     /**
      * 是否可以编辑

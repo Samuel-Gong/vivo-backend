@@ -55,9 +55,20 @@ public class LectureControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        JSONAssert.assertEquals("{\"id\":1,\"title\":\"hackathon\",\"editable\":true,\"lastCommentTime\":\"2019-05-26 19:56:00.200\"}",
+        JSONAssert.assertEquals("{\"lecture\":{\"id\":1,\"title\":\"hackathon\",\"speaker\":\"gcm\",\"start\":\"2019-05-26 19:56\",\"validityDays\":1},\"editable\":true,\"lastCommentTime\":\"2019-05-26 19:56:00.200\"}",
                 result.getResponse().getContentAsString(), false);
     }
+
+    @Test
+    public void shouldReturnLectureEmptyComments() throws Exception {
+        MvcResult result = mockMvc.perform(get("/lectures/{id}", 5))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONAssert.assertEquals("{\"lecture\":{\"id\":5,\"title\":\"test for empty comments\",\"speaker\":\"gcm\",\"start\":\"2019-05-26 12:12\",\"validityDays\":1},\"editable\":true,\"comments\":[],\"lastCommentTime\":\"2019-05-26 12:12:00.000\"}",
+                result.getResponse().getContentAsString(), false);
+    }
+
 
     @Test
     public void shouldNotFoundLecture() throws Exception {

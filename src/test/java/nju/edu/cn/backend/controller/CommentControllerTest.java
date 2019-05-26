@@ -65,9 +65,19 @@ public class CommentControllerTest {
     }
 
     @Test
-    public void shouldNotEditComment() throws Exception {
+    public void shouldNotEditCommentAfter() throws Exception {
         mockMvc.perform(post("/comments")
                 .param("lectureId", "2")
+                .content(mapper.writeValueAsString(commentVO))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldNotAddCommentBefore() throws Exception {
+        mockMvc.perform(post("/comments")
+                .param("lectureId", "4")
                 .content(mapper.writeValueAsString(commentVO))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is4xxClientError())

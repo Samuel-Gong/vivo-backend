@@ -103,6 +103,7 @@
                         <exclude>**/config/**</exclude>
                         <exclude>**/BackendApplication.java</exclude>
                         <exclude>**/vo/**</exclude>
+                        <exclude>**/entity/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>

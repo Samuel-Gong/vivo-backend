@@ -90,14 +90,18 @@ public class LectureService {
         // 是否可编辑
         boolean editable = LocalDateTime.now().isBefore(lecture.getStart().plusDays(lecture.getValidityDays()));
 
+        LectureVO lectureVO = modelMapper.map(lecture, LectureVO.class);
+
         LectureCommentVO lectureCommentVO = LectureCommentVO.builder()
-                .id(lecture.getId())
-                .title(lecture.getTitle())
+                .lecture(lectureVO)
                 .editable(editable)
                 .comments(comments)
                 .build();
 
-        if (comments.size() > 1) {
+        // 最后一条评论时间，若无评论，设置为讲座开始时间
+        if (comments.isEmpty()) {
+            lectureCommentVO.setLastCommentTime(lecture.getStart());
+        } else {
             lectureCommentVO.setLastCommentTime(comments.get(comments.size() - 1).getCreatedAt());
         }
 

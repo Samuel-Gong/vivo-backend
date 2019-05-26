@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({GlobalException.class})
     public ResponseEntity<ExceptionResponseVO> errorMessage(GlobalException ex) {
-        log.error("GlobalException error", ex);
+        log.warn("GlobalException error", ex);
         Locale locale = Locale.CHINA;
         String code = ex.getCode().uniqueKey().toLowerCase();
         String message = ex.getMessage();
