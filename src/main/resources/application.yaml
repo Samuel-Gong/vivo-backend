@@ -8,7 +8,7 @@ spring:
       write_dates_as_timestamps: false
     deserialization:
       fail_on_unknown_properties: false
-    time-zone: UTC+8
+    time-zone: GMT+8
   datasource:
     data:
       - classpath:test.sql
@@ -17,15 +17,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: dangerous
-    url: jdbc:mysql://47.103.54.76:3306/lecture?useUnicode=true&character_set_server=utf8mb4&useSSL=false&useLegacyDatetimeCode=false
+    url: jdbc:mysql://47.103.54.76:3306/lecture?useUnicode=true&character_set_server=utf8mb4&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
   jpa:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
-        jdbc:
-          time_zone: UTC+8
+        #        jdbc:
+        #          time_zone: UTC+8
         connection:
           charSet: utf8mb4
           characterEncoding: utf8
