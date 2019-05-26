@@ -56,11 +56,10 @@ public class CommentService {
     public CommentVO createComment(Long lectureId, CommentVO commentVO) {
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> {
             log.error("找不到 id 为 [{}] 的讲座", lectureId);
-            // todo test
             return new NotFoundLectureException("找不到讲座");
         });
         LocalDateTime now = LocalDateTime.now();
-        if (editable(now, lecture)) {
+        if (isAddable(now, lecture)) {
             Comment comment = commentRepository.save(Comment.builder()
                     .lectureId(lectureId)
                     .nickName(commentVO.getNickName())
@@ -69,7 +68,6 @@ public class CommentService {
             return modelMapper.map(comment, CommentVO.class);
         } else {
             log.error("讲座评论不可添加，讲座 id 为 [{}]，开始时间为 [{}]，有效期为 [{}]，发送时间为 [{}]", lectureId, lecture.getStart(), lecture.getValidityDays(), now);
-            // todo test
             throw new CommentNotEditable("不可添加评论，讲座未开始或讲座评论有效期已过");
         }
     }
@@ -80,7 +78,7 @@ public class CommentService {
      * @param lecture 讲座
      * @return 是否可编辑
      */
-    private boolean editable(LocalDateTime now, Lecture lecture) {
+    private boolean isAddable(LocalDateTime now, Lecture lecture) {
         return now.isAfter(lecture.getStart()) && now.isBefore(lecture.getStart().plusDays(lecture.getValidityDays()));
     }
 }

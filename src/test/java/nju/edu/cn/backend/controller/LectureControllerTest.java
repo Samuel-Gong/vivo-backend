@@ -50,14 +50,19 @@ public class LectureControllerTest {
     }
 
     @Test
-    public void queryLecture() throws Exception {
-        System.out.println("系统时区: " + System.getProperty("user.timezone"));
-
+    public void shouldReturnLectureComment() throws Exception {
         MvcResult result = mockMvc.perform(get("/lectures/{id}", 1))
                 .andExpect(status().isOk())
                 .andReturn();
 
         JSONAssert.assertEquals("{\"id\":1,\"title\":\"hackathon\",\"editable\":true,\"lastCommentTime\":\"2019-05-26 19:56:00.200\"}",
                 result.getResponse().getContentAsString(), false);
+    }
+
+    @Test
+    public void shouldNotFoundLecture() throws Exception {
+        mockMvc.perform(get("/lectures/{id}", 3))
+                .andExpect(status().isNotFound())
+                .andReturn();
     }
 }

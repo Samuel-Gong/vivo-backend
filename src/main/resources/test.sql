@@ -1,6 +1,7 @@
 -- lectures
 insert into lecture
-values (1, 'gcm', '2019-05-26 19:56', 'hackathon', 1);
+values (1, 'gcm', '2019-05-26 19:56', 'hackathon', 1),
+       (2, 'gcm', '2019-01-11 11:11', 'test for not editable', 1);
 
 -- comments
 insert into comment

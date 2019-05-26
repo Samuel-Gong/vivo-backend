@@ -102,6 +102,7 @@
                     <excludes>
                         <exclude>**/config/**</exclude>
                         <exclude>**/BackendApplication.java</exclude>
+                        <exclude>**/vo/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
