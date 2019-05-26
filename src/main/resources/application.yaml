@@ -1,0 +1,53 @@
+# 默认配置
+spring:
+  application:
+    name: backend
+  jackson:
+    serialization:
+      indent_output: true
+      write_dates_as_timestamps: false
+    deserialization:
+      fail_on_unknown_properties: false
+    time-zone: GMT+8
+  datasource:
+    data:
+      - classpath:test.sql
+    initialization-mode: always
+    continue-on-error: false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: dangerous
+    url: jdbc:mysql://47.103.54.76:3306/lecture?useUnicode=true&character_set_server=utf8mb4&useSSL=false&useLegacyDatetimeCode=false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: GMT+8
+        connection:
+          charSet: utf8mb4
+          characterEncoding: utf8
+          useUnicode: true
+        hbm2ddl:
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+    show-sql: true
+  mvc:
+    locale: zh_CN
+  messages:
+    basename: i18n/messages
+server:
+  port: 19970
+  servlet:
+    context-path: /lecon
+
+# 日志
+logging:
+  level:
+    org.springframework: info
+    daocloud.nat.dmp.apm.alerting: debug
+  path: ${LOGGING_PATH:logs/}
+  file: ${logging.path}/backend.log
+  file.max-history: 50
+  file.max-size: 50MB
