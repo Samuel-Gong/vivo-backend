@@ -38,7 +38,7 @@ public class CommentVO {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-hh HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime createdAt;
 
 }

@@ -38,7 +38,7 @@ public class Lecture {
     /**
      * 讲座开始时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-hh HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime start;
 
     /**

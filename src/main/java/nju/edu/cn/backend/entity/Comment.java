@@ -53,8 +53,8 @@ public class Comment {
      * 创建时间
      */
     @CreationTimestamp
-    @DateTimeFormat(pattern = "yyyy-MM-hh HH:mm:ss.SSS")
-    @Column(name = "created_at")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @Column(name = "created_at", columnDefinition = "DATETIME(6)")
     private LocalDateTime createdAt;
 
 }

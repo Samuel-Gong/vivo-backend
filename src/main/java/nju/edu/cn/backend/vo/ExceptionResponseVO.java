@@ -26,7 +26,7 @@ public class ExceptionResponseVO {
     /**
      * 当前时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-hh HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime time;
     /**
      * 异常
