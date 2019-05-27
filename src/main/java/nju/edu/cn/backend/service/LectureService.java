@@ -88,7 +88,7 @@ public class LectureService {
                 .forEach(comment -> comments.add(modelMapper.map(comment, CommentVO.class)));
 
         // 是否可编辑
-        boolean editable = LocalDateTime.now().isBefore(lecture.getStart().plusDays(lecture.getValidityDays()));
+        boolean editable = isEditable(lecture.getStart(), lecture.getValidityDays());
 
         LectureVO lectureVO = modelMapper.map(lecture, LectureVO.class);
 
@@ -106,5 +106,10 @@ public class LectureService {
         }
 
         return lectureCommentVO;
+    }
+
+    private boolean isEditable(LocalDateTime start, int validityDays) {
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(start) && now.isBefore(start.plusDays(validityDays));
     }
 }
