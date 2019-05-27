@@ -38,7 +38,7 @@ public class CommentController {
      */
     @GetMapping
     public List<CommentVO> refreshComments(@RequestParam("lectureId") Long lectureId,
-                                           @RequestParam("lastCommentTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime lastCommentTime) {
+                                           @RequestParam("lastCommentTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS") LocalDateTime lastCommentTime) {
         return commentService.refreshComments(lectureId, lastCommentTime);
     }
 

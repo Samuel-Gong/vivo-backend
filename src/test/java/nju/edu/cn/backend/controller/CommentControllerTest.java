@@ -43,6 +43,18 @@ public class CommentControllerTest {
     }
 
     @Test
+    public void shouldRefresh() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/comments")
+                .param("lectureId", "1")
+                .param("lastCommentTime", "2019-05-26 19:57:00.200"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONAssert.assertEquals("[{\"id\":4,\"nickName\":\"gy\",\"text\":\"awesome\",\"likes\":0,\"createdAt\":\"2019-05-26 19:58:00.200\"}]",
+                result.getResponse().getContentAsString(), false);
+    }
+
+    @Test
     public void shouldCreateComment() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/comments")
                 .param("lectureId", "1")
