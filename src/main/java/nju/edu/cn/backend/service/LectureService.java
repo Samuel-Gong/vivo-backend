@@ -65,6 +65,7 @@ public class LectureService {
                 .validityDays(lectureVO.getValidityDays())
                 .build());
 
+        log.info("创建讲座 [{}]", lectureVO);
         return modelMapper.map(lecture, LectureVO.class);
     }
 
@@ -75,6 +76,8 @@ public class LectureService {
      * @return 讲座及评论数据
      */
     public LectureCommentVO queryLecture(Long id) {
+        log.info("查询讲座评论，讲座 id 为 [{}]", id);
+
         Lecture lecture = lectureRepository.findById(id).orElseThrow(() -> {
             log.error("找不到 id 为 [{}] 的讲座", id);
             return new NotFoundLectureException("找不到讲座");
@@ -104,7 +107,6 @@ public class LectureService {
         } else {
             lectureCommentVO.setLastCommentTime(comments.get(comments.size() - 1).getCreatedAt());
         }
-
         return lectureCommentVO;
     }
 

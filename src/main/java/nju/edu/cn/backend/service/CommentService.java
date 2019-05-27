@@ -65,6 +65,8 @@ public class CommentService {
      * @return 新评论列表
      */
     public List<CommentVO> refreshComments(Long lectureId, LocalDateTime lastCommentTime) {
+        log.info("更新评论信息，讲座 id [{}]，最后评论时间 [{}]", lectureId, lastCommentTime);
+
         QComment qComment = QComment.comment;
         BooleanBuilder builder = new BooleanBuilder(qComment.lectureId.eq(lectureId));
         builder.and(qComment.createdAt.after(lastCommentTime));
@@ -97,6 +99,8 @@ public class CommentService {
                     // 点赞数初始化为0
                     .likes(0L)
                     .build());
+
+            log.info("创建讲座，讲座 id [{}]，评论信息 [{}]", lecture, commentVO);
             return modelMapper.map(comment, CommentVO.class);
         } else {
             log.warn("讲座评论不可添加，讲座 id 为 [{}]，开始时间为 [{}]，有效期为 [{}]", lectureId, lecture.getStart(), lecture.getValidityDays());
@@ -112,6 +116,7 @@ public class CommentService {
      * @return 点赞数量
      */
     public CommentVO like(Long id, Boolean like) {
+        log.info("评论点赞，评论 id [{}]，like: [{}]", id, like);
         Comment comment = commentRepository.findById(id).orElseThrow(() -> {
             log.warn("找不到对应评论，评论id [{}]", id);
             return new NotFoundCommentException("找不到对应评论");
