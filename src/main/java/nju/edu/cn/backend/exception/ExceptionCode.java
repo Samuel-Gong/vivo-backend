@@ -12,9 +12,21 @@ public enum ExceptionCode {
      */
     LECTURE_NOT_FOUND("lecture_not_found", 404),
     /**
+     * 没有相应评论
+     */
+    COMMENT_NOT_FOUND("comment_not_found", 404),
+    /**
      * 不再评论时间内，评论不可编辑
      */
-    COMMENT_NOT_EDITABLE("comment_not_editable", 416);
+    COMMENT_NOT_EDITABLE("comment_not_editable", 416),
+    /**
+     * 昵称或评论内容中含有敏感词汇
+     */
+    TEXT_SENSITIVE("text_sensitive", 451),
+    /**
+     * 文本分析调用失败
+     */
+    TEXT_INVOKE_FAILED("text_invoke_failed", 500);
 
     /**
      * i18n 映射键

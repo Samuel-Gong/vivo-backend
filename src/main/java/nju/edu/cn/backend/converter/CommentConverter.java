@@ -24,6 +24,7 @@ public class CommentConverter extends ConverterConfigurerSupport<Comment, Commen
                         .id(source.getId())
                         .nickName(source.getNickName())
                         .text(source.getText())
+                        .likes(source.getLikes())
                         .createdAt(source.getCreatedAt())
                         .build();
             }

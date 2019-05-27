@@ -50,6 +50,11 @@ public class Comment {
     private String text;
 
     /**
+     * 点赞数
+     */
+    private Long likes;
+
+    /**
      * 创建时间
      */
     @CreationTimestamp

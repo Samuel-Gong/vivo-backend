@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -82,5 +83,27 @@ public class CommentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is4xxClientError())
                 .andReturn();
+    }
+
+    @Test
+    public void shouldLike() throws Exception {
+        MvcResult result = mockMvc.perform(patch("/comments/{id}", 1)
+                .param("like", "true"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONAssert.assertEquals("{\"id\":1,\"nickName\":\"fjj\",\"text\":\"good\",\"likes\":101,\"createdAt\":\"2019-05-26 19:56:00.100\"}"
+                , result.getResponse().getContentAsString(), false);
+    }
+
+    @Test
+    public void shouldUnlike() throws Exception {
+        MvcResult result = mockMvc.perform(patch("/comments/{id}", 1)
+                .param("like", "false"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONAssert.assertEquals("{\"id\":1,\"nickName\":\"fjj\",\"text\":\"good\",\"likes\":99,\"createdAt\":\"2019-05-26 19:56:00.100\"}"
+                , result.getResponse().getContentAsString(), false);
     }
 }

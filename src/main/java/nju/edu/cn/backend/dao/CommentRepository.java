@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @author Shenmiu
  */
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Integer>, QuerydslPredicateExecutor<Comment> {
+public interface CommentRepository extends JpaRepository<Comment, Long>, QuerydslPredicateExecutor<Comment> {
 }

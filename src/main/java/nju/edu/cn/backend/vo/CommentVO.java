@@ -36,6 +36,11 @@ public class CommentVO {
     private String text;
 
     /**
+     * 点赞数
+     */
+    private Long likes;
+
+    /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
