@@ -26,6 +26,7 @@ public class LectureConverter extends ConverterConfigurerSupport<Lecture, Lectur
                         .speaker(source.getSpeaker())
                         .start(source.getStart())
                         .validityDays(source.getValidityDays())
+                        .expire(source.getStart().plusDays(source.getValidityDays()))
                         .build();
             }
         };

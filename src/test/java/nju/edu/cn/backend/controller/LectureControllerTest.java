@@ -45,7 +45,7 @@ public class LectureControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        JSONAssert.assertEquals("{\"title\":\"lecture\",\"start\":\"2019-05-26 00:00\",\"validityDays\":1}",
+        JSONAssert.assertEquals("{\"title\":\"lecture\",\"start\":\"2019-05-26 00:00\",\"validityDays\":1,\"expire\":\"2019-05-27 00:00\"}",
                 result.getResponse().getContentAsString(), false);
     }
 

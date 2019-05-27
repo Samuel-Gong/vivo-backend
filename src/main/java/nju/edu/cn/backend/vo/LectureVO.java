@@ -46,4 +46,10 @@ public class LectureVO {
      */
     private Integer validityDays;
 
+    /**
+     * 过期时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime expire;
+
 }
