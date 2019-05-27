@@ -89,8 +89,7 @@ public class CommentService {
             return new NotFoundLectureException("找不到讲座");
         });
 
-        LocalDateTime now = LocalDateTime.now();
-        if (lectureService.isEditable(now, lecture.getValidityDays())) {
+        if (lectureService.isEditable(lecture.getStart(), lecture.getValidityDays())) {
             Comment comment = commentRepository.save(Comment.builder()
                     .lectureId(lectureId)
                     .nickName(commentVO.getNickName())
@@ -100,7 +99,7 @@ public class CommentService {
                     .build());
             return modelMapper.map(comment, CommentVO.class);
         } else {
-            log.warn("讲座评论不可添加，讲座 id 为 [{}]，开始时间为 [{}]，有效期为 [{}]，发送时间为 [{}]", lectureId, lecture.getStart(), lecture.getValidityDays(), now);
+            log.warn("讲座评论不可添加，讲座 id 为 [{}]，开始时间为 [{}]，有效期为 [{}]", lectureId, lecture.getStart(), lecture.getValidityDays());
             throw new CommentNotEditable("不可添加评论，讲座未开始或讲座评论有效期已过");
         }
     }
