@@ -118,4 +118,12 @@ public class CommentControllerTest {
         JSONAssert.assertEquals("{\"id\":1,\"nickName\":\"fjj\",\"text\":\"good\",\"likes\":99,\"createdAt\":\"2019-05-26 19:56:00.100\"}"
                 , result.getResponse().getContentAsString(), false);
     }
+
+    @Test
+    public void shouldNotFoundComment() throws Exception {
+        mockMvc.perform(patch("/comments/{id}", 5)
+                .param("like", "true"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
 }

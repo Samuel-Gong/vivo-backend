@@ -108,7 +108,14 @@ public class LectureService {
         return lectureCommentVO;
     }
 
-    private boolean isEditable(LocalDateTime start, int validityDays) {
+    /**
+     * 当前讲座评论是否可编辑
+     *
+     * @param start        讲座开始时间
+     * @param validityDays 有效天数
+     * @return 是否可编辑
+     */
+    public boolean isEditable(LocalDateTime start, int validityDays) {
         LocalDateTime now = LocalDateTime.now();
         return now.isAfter(start) && now.isBefore(start.plusDays(validityDays));
     }

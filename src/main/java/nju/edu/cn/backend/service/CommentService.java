@@ -41,13 +41,19 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     /**
+     * 讲座服务
+     */
+    private LectureService lectureService;
+
+    /**
      * 实体转换
      */
     private ModelMapper modelMapper;
 
-    public CommentService(LectureRepository lectureRepository, CommentRepository commentRepository, ModelMapper modelMapper) {
+    public CommentService(LectureRepository lectureRepository, CommentRepository commentRepository, LectureService lectureService, ModelMapper modelMapper) {
         this.lectureRepository = lectureRepository;
         this.commentRepository = commentRepository;
+        this.lectureService = lectureService;
         this.modelMapper = modelMapper;
     }
 
@@ -84,7 +90,7 @@ public class CommentService {
         });
 
         LocalDateTime now = LocalDateTime.now();
-        if (isAddable(now, lecture)) {
+        if (lectureService.isEditable(now, lecture.getValidityDays())) {
             Comment comment = commentRepository.save(Comment.builder()
                     .lectureId(lectureId)
                     .nickName(commentVO.getNickName())
@@ -97,16 +103,6 @@ public class CommentService {
             log.warn("讲座评论不可添加，讲座 id 为 [{}]，开始时间为 [{}]，有效期为 [{}]，发送时间为 [{}]", lectureId, lecture.getStart(), lecture.getValidityDays(), now);
             throw new CommentNotEditable("不可添加评论，讲座未开始或讲座评论有效期已过");
         }
-    }
-
-    /**
-     * 在讲座开始时间后，有效时间前即可编辑
-     *
-     * @param lecture 讲座
-     * @return 是否可编辑
-     */
-    private boolean isAddable(LocalDateTime now, Lecture lecture) {
-        return now.isAfter(lecture.getStart()) && now.isBefore(lecture.getStart().plusDays(lecture.getValidityDays()));
     }
 
     /**
